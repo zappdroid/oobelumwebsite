@@ -1,0 +1,456 @@
+/* Obelum Properties — homepage behaviour
+   Progressive enhancement only: every section is readable with JS disabled. */
+(() => {
+  'use strict';
+
+  const $  = (sel, root = document) => root.querySelector(sel);
+  const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* --- Sticky header + hero nav ------------------------------------------ */
+  const header = $('[data-header]');
+  const heroNav = $('.hero-nav');
+  if (header) {
+    let docked = 0;
+    // Hand the nav over to the pinned bar exactly as it would slide underneath
+    // it, so the menu appears to stick rather than jump. Measured, not a guess
+    // at the hero's height: a fixed fraction of the viewport docked it early
+    // and the nav teleported up while still plainly in view.
+    const threshold = () => {
+      if (heroNav && heroNav.offsetParent) {
+        const top = heroNav.getBoundingClientRect().top + window.scrollY;
+        return Math.max(top - header.offsetHeight, 0);
+      }
+      return Math.max(window.innerHeight * 0.72, 260);
+    };
+    const onScroll = () => {
+      // Read the threshold off the unstuck layout only; once the nav is fixed
+      // its own rect no longer tracks the page and the test would never clear.
+      if (!header.classList.contains('is-stuck')) docked = threshold();
+      const stuck = window.scrollY > docked;
+      header.classList.toggle('is-stuck', stuck);
+      // The nav only exists at the foot of the hero, so it rides up into the
+      // condensed bar rather than scrolling out of reach.
+      if (heroNav) heroNav.classList.toggle('is-stuck', stuck);
+    };
+    addEventListener('scroll', onScroll, { passive: true });
+    addEventListener('resize', onScroll);
+    onScroll();
+  }
+
+  /* --- Parallax: the scene lags the page as you scroll past it ----------- */
+  // Each [data-parallax] element is translated by a fraction of how far its
+  // own section has travelled up the viewport, so the photograph drifts
+  // slower than the content over it. The value is that fraction; the element
+  // needs enough overhang (see .hero__media) to cover the distance it moves.
+  const parallax = $$('[data-parallax]');
+  if (parallax.length && !reduced) {
+    let queued = false;
+    const place = () => {
+      queued = false;
+      for (const el of parallax) {
+        const host = el.parentElement;
+        const r = host.getBoundingClientRect();
+        // Off-screen sections cost nothing and keep whatever offset they had.
+        if (r.bottom < 0 || r.top > window.innerHeight) continue;
+        const depth = parseFloat(el.dataset.parallax) || 0.12;
+        // How far the section has climbed past the top of the viewport,
+        // clamped so the offset settles once the section has fully gone.
+        const climbed = Math.min(Math.max(-r.top, 0), r.height);
+        el.style.transform = 'translate3d(0,' + (climbed * depth).toFixed(1) + 'px,0)';
+      }
+    };
+    // rAF-throttled: scroll fires far faster than the screen refreshes, and
+    // reading a rect in the handler itself would force layout every event.
+    const onScroll = () => { if (!queued) { queued = true; requestAnimationFrame(place); } };
+    addEventListener('scroll', onScroll, { passive: true });
+    addEventListener('resize', onScroll);
+    place();
+  }
+
+  /* --- Hero slideshow + motion toggle ------------------------------------- */
+  const mediaToggle = $('[data-media-toggle]');
+  const world = $('.world');
+  // The toggle lives in the world panel and pauses its drift, and will drive a
+  // <video data-world-video> there if one is ever added.
+  if (mediaToggle && world) {
+    const wv = $('[data-world-video]', world);
+    let paused = reduced;
+    const apply = () => {
+      world.classList.toggle('is-paused', paused);
+      mediaToggle.setAttribute('aria-pressed', String(paused));
+      mediaToggle.setAttribute('aria-label', paused ? 'Play background motion' : 'Pause background motion');
+      if (wv) paused ? wv.pause() : wv.play().catch(() => {});
+    };
+    apply();
+    mediaToggle.addEventListener('click', () => { paused = !paused; apply(); });
+  }
+
+  const hero = $('.hero');
+  if (hero) {
+    const slides = $$('.hero__slide', hero);
+    const video = $('[data-hero-video]', hero);
+    const HOLD = 6500;                   // time each slide is held before the fade
+    let index = Math.max(0, slides.findIndex((s) => s.classList.contains('is-active')));
+    let timer = null;
+    // Reduced-motion visitors start paused on the first frame.
+    let paused = reduced;
+
+    const advance = () => {
+      if (slides.length < 2) return;
+      slides[index].classList.remove('is-active');
+      index = (index + 1) % slides.length;
+      const next = slides[index];
+      // Restart the drift so each slide pushes in from its own starting scale.
+      next.style.animation = 'none';
+      void next.offsetWidth;
+      next.style.animation = '';
+      next.classList.add('is-active');
+    };
+
+    const stop = () => { clearInterval(timer); timer = null; };
+    const start_ = () => {
+      stop();
+      if (!paused && slides.length > 1 && !document.hidden) timer = setInterval(advance, HOLD);
+    };
+
+    const apply = () => {
+      hero.classList.toggle('is-paused', paused);
+      if (video) paused ? video.pause() : video.play().catch(() => {});
+      start_();
+    };
+
+    apply();
+    // Don't burn cycles fading images nobody is looking at.
+    document.addEventListener('visibilitychange', () => { document.hidden ? stop() : start_(); });
+  }
+
+  /* --- Mobile navigation ------------------------------------------------ */
+  const burger = $('[data-burger]');
+  const mobileNav = $('[data-mobile-nav]');
+  if (burger && mobileNav) {
+    const setOpen = (open) => {
+      burger.setAttribute('aria-expanded', String(open));
+      burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      mobileNav.classList.toggle('is-open', open);
+      document.body.classList.toggle('nav-open', open);
+    };
+    burger.addEventListener('click', () => {
+      setOpen(burger.getAttribute('aria-expanded') !== 'true');
+    });
+    mobileNav.addEventListener('click', (e) => {
+      if (e.target.closest('a')) setOpen(false);
+    });
+    addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && burger.getAttribute('aria-expanded') === 'true') {
+        setOpen(false);
+        burger.focus();
+      }
+    });
+  }
+
+  /* --- Scroll reveal ----------------------------------------------------- */
+  const revealables = $$('.reveal');
+  if (reduced || !('IntersectionObserver' in window)) {
+    revealables.forEach((el) => el.classList.add('is-in'));
+  } else {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-in');
+        io.unobserve(entry.target);
+      });
+    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.12 });
+    revealables.forEach((el) => io.observe(el));
+  }
+
+  /* --- Listing category filter --------------------------------------------- */
+  const catTabs = $$('.cats__tab');
+  const tileWrap = $('[data-tiles]');
+  if (catTabs.length && tileWrap) {
+    const tiles = $$('.tile', tileWrap);
+    const empty = document.createElement('p');
+    empty.className = 'tiles__empty';
+    empty.hidden = true;
+    empty.textContent = 'Nothing in this category right now.';
+    tileWrap.appendChild(empty);
+
+    const show = (cat) => {
+      let shown = 0;
+      tiles.forEach((t) => {
+        const match = (t.dataset.cats || '').split(/\s+/).includes(cat);
+        t.hidden = !match;
+        if (match) shown++;
+      });
+      empty.hidden = shown > 0;
+    };
+
+    catTabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        catTabs.forEach((t) => t.setAttribute('aria-selected', String(t === tab)));
+        show(tab.dataset.cat);
+      });
+    });
+
+    const initial = catTabs.find((t) => t.getAttribute('aria-selected') === 'true') || catTabs[0];
+    show(initial.dataset.cat);
+  }
+
+  /* --- Testimonials ------------------------------------------------------ */
+  const quotesRoot = $('[data-quotes]');
+  if (quotesRoot) {
+    const quotes = $$('[data-quote]', quotesRoot);
+    const dots = $('.quotes__dots', quotesRoot);
+    let index = 0;
+    let timer = null;
+    let inView = true;
+
+    const show = (next) => {
+      index = (next + quotes.length) % quotes.length;
+      quotes.forEach((q, i) => q.classList.toggle('is-active', i === index));
+      $$('button', dots).forEach((d, i) => d.setAttribute('aria-current', String(i === index)));
+    };
+
+    quotes.forEach((_, i) => {
+      const dot = document.createElement('button');
+      dot.type = 'button';
+      dot.setAttribute('role', 'tab');
+      dot.setAttribute('aria-label', `Testimonial ${i + 1}`);
+      dot.setAttribute('aria-current', String(i === 0));
+      dot.addEventListener('click', () => { show(i); restart(); });
+      dots.appendChild(dot);
+    });
+
+    const restart = () => {
+      clearInterval(timer);
+      if (reduced || !inView) return;
+      timer = setInterval(() => show(index + 1), 7000);
+    };
+
+    const prev = $('[data-quote-prev]', quotesRoot);
+    const next = $('[data-quote-next]', quotesRoot);
+    if (prev) prev.addEventListener('click', () => { show(index - 1); restart(); });
+    if (next) next.addEventListener('click', () => { show(index + 1); restart(); });
+
+    // Hover-pause is scoped to the controls. It used to sit on the whole
+    // section, which is 92% of the viewport wide and 378px tall — resting the
+    // pointer anywhere in that band stopped the rotation for good, so it only
+    // ever moved when someone pressed an arrow.
+    [prev, next, dots].forEach((el) => {
+      if (!el) return;
+      el.addEventListener('mouseenter', () => clearInterval(timer));
+      el.addEventListener('mouseleave', restart);
+    });
+    // Someone reading with the keyboard should not have it move under them.
+    quotesRoot.addEventListener('focusin', () => clearInterval(timer));
+    quotesRoot.addEventListener('focusout', restart);
+    document.addEventListener('visibilitychange', () => {
+      document.hidden ? clearInterval(timer) : restart();
+    });
+    // No point rotating a section nobody is looking at — and it means the set
+    // starts from wherever it was when you arrive, not mid-cycle.
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(([e]) => {
+        inView = e.isIntersecting;
+        inView ? restart() : clearInterval(timer);
+      }, { threshold: 0.25 }).observe(quotesRoot);
+    }
+    restart();
+  }
+
+  /* --- Brief form: the panel follows the chosen intent ------------------- */
+  const brief = $('[data-brief]');
+  if (brief) {
+    const copyBox = $('[data-intent-copy]');
+    const submit  = $('[data-brief-submit]', brief);
+    const note    = $('[data-brief-note]', brief);
+    const defaultSubmit = submit ? submit.textContent.trim() : '';
+    const defaultNote   = note ? note.textContent.trim() : '';
+
+    const show = (key) => {
+      if (copyBox) {
+        const blocks = $$('[data-for]', copyBox);
+        const wanted = blocks.find(b => b.dataset.for === key)
+                    || blocks.find(b => b.dataset.for === 'default');
+        blocks.forEach(b => {
+          const on = b === wanted;
+          b.hidden = !on;
+          // Re-trigger the entrance each time rather than only on first paint.
+          if (on) { b.style.animation = 'none'; void b.offsetWidth; b.style.animation = ''; }
+        });
+      }
+      const picked = $(`.intent__input[value="${key}"]`, brief);
+      if (submit) submit.textContent = (picked && picked.dataset.submit) || defaultSubmit;
+      if (note)   note.textContent   = (picked && picked.dataset.note)   || defaultNote;
+    };
+
+    /* --- The intent disclosure ------------------------------------------- */
+    const field   = $('[data-intent-field]', brief);
+    const toggle  = $('[data-intent-toggle]', brief);
+    const options = $('[data-intent-options]', brief);
+    const valueEl = $('[data-intent-value]', brief);
+    const placeholder = valueEl ? valueEl.textContent.trim() : 'Select one';
+
+    const openList = (open) => {
+      if (!toggle || !options) return;
+      options.hidden = !open;
+      toggle.setAttribute('aria-expanded', String(open));
+      if (open) {
+        const target = $('.intent__input:checked', options) || $('.intent__input', options);
+        if (target) target.focus();
+      }
+    };
+    if (toggle) {
+      toggle.addEventListener('click', () => openList(options.hidden));
+      // Escape closes and hands focus back, rather than stranding it in a
+      // panel that is no longer on screen.
+      field.addEventListener('keydown', (e) => {
+        if (e.key !== 'Escape' || options.hidden) return;
+        openList(false);
+        toggle.focus();
+      });
+      document.addEventListener('click', (e) => {
+        if (!options.hidden && !field.contains(e.target)) openList(false);
+      });
+    }
+
+    const commit = () => { openList(false); if (toggle) toggle.focus(); };
+
+    // Changing and committing are separate. Arrowing through a radio group
+    // fires change on every step, so closing there meant the first ArrowDown
+    // picked an option and shut the panel — a keyboard user could never reach
+    // the third or fourth. Arrow keys now browse; click, Enter or Space commit.
+    $$('.intent__input', brief).forEach(r => {
+      r.addEventListener('change', () => {
+        if (!r.checked) return;
+        show(r.value);
+        const title = $('.intent__title', r.parentElement);
+        if (valueEl && title) valueEl.textContent = title.textContent.trim();
+      });
+    });
+    if (options) {
+      options.addEventListener('click', (e) => {
+        // Selecting a radio with an arrow key also fires a click, which would
+        // close the panel again. A real pointer click carries detail >= 1; the
+        // keyboard's synthetic one is 0.
+        if (e.detail === 0) return;
+        if (e.target.closest('.intent')) commit();
+      });
+      options.addEventListener('keydown', (e) => {
+        if (e.key !== 'Enter') return;
+        e.preventDefault();          // this one would otherwise submit the form
+        commit();
+      });
+      // Space checks the radio natively; commit once it has.
+      options.addEventListener('keyup', (e) => { if (e.key === ' ') commit(); });
+    }
+    // A back/forward restore can hand us a radio already checked.
+    const preset = $('.intent__input:checked', brief);
+    if (preset) {
+      show(preset.value);
+      const t = $('.intent__title', preset.parentElement);
+      if (valueEl && t) valueEl.textContent = t.textContent.trim();
+    }
+
+    // No endpoint behind this either. Say so rather than reloading the page
+    // and dropping whatever they typed, which is what action="#" did.
+    // On the button's click, not the form's submit: submit only fires once the
+    // browser's own required-field checks pass, so asking for an intent there
+    // made people fill in four fields before being told to pick one first.
+    if (submit) {
+      submit.addEventListener('click', (e) => {
+        if (brief.getAttribute('action')) return;
+        if ($('.intent__input:checked', brief)) return;
+        e.preventDefault();
+        if (note) note.textContent = 'Pick one of the four so we know who should reply.';
+        openList(true);
+      });
+    }
+
+    brief.addEventListener('submit', (e) => {
+      if (brief.getAttribute('action')) return;
+      e.preventDefault();
+      if (!$('.intent__input:checked', brief)) return;
+      if (note) {
+        note.innerHTML = 'Thanks \u2014 nothing is connected behind this form yet. ' +
+          'Email <a href="mailto:hello@obelum.ae?subject=Brief">hello@obelum.ae</a> ' +
+          'and an advisor will pick it up.';
+      }
+    });
+  }
+
+  /* --- Signup ------------------------------------------------------------- */
+  // There is no mailing list behind this yet. Rather than drop the address on
+  // the floor or claim a subscription that did not happen, send people to an
+  // inbox that exists. Remove this block once the form has a real action.
+  const signup = $('[data-signup]');
+  if (signup) {
+    const note = $('[data-signup-note]', signup);
+    signup.addEventListener('submit', (e) => {
+      if (signup.getAttribute('action')) return;   // a provider is wired in
+      e.preventDefault();
+      const email = $('#signup-email', signup);
+      if (!email.value.trim() || !email.checkValidity()) {
+        if (note) note.textContent = 'Please enter a valid email address.';
+        email.focus();
+        return;
+      }
+      if (note) {
+        note.innerHTML = 'Our list is not open yet \u2014 email ' +
+          '<a href="mailto:hello@obelum.ae?subject=Newsletter">hello@obelum.ae</a> ' +
+          'and we will add you.';
+      }
+    });
+  }
+
+  /* --- Instagram feed carousel --------------------------------------------- */
+  const feedTrack = $('[data-feed-track]');
+  if (feedTrack) {
+    const arrows = $$('[data-feed]');
+    const step = () => {
+      const first = feedTrack.firstElementChild;
+      if (!first) return feedTrack.clientWidth;
+      const gap = parseFloat(getComputedStyle(feedTrack).columnGap) || 0;
+      return first.getBoundingClientRect().width + gap;
+    };
+
+    // Grey the arrows out at each end rather than letting them do nothing.
+    const sync = () => {
+      const max = feedTrack.scrollWidth - feedTrack.clientWidth;
+      const x = feedTrack.scrollLeft;
+      arrows.forEach((a) => {
+        const atEnd = a.dataset.feed === 'next' ? x >= max - 2 : x <= 2;
+        a.toggleAttribute('disabled', atEnd);
+      });
+    };
+
+    arrows.forEach((a) => a.addEventListener('click', () => {
+      feedTrack.scrollBy({ left: a.dataset.feed === 'next' ? step() : -step(),
+                           behavior: reduced ? 'auto' : 'smooth' });
+    }));
+    feedTrack.addEventListener('scroll', sync, { passive: true });
+    addEventListener('resize', sync);
+    addEventListener('load', sync);
+    sync();
+  }
+
+  /* --- Service worker ------------------------------------------------------ */
+  // Only over http(s); registering from file:// throws.
+  if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
+    // When a new worker takes control, reload once so the page is never left
+    // showing markup from the previous deploy.
+    let reloading = false;
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      if (reloading) return;
+      reloading = true;
+      location.reload();
+    });
+    addEventListener('load', () => {
+      navigator.serviceWorker.register('sw.js').catch(() => {});
+    });
+  }
+
+  /* --- Footer year -------------------------------------------------------- */
+  const year = $('[data-year]');
+  if (year) year.textContent = String(new Date().getFullYear());
+})();

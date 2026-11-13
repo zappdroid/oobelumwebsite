@@ -1,0 +1,610 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Obelum Properties — Dubai Real Estate, Measured</title>
+<meta name="description" content="Find somewhere that feels like yours. Thoughtfully connecting you with homes to rent, buy and invest in across Dubai.">
+<meta name="theme-color" content="#2D302F">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Obelum Properties">
+<meta property="og:title" content="Obelum Properties — Dubai Real Estate, Measured">
+<meta property="og:description" content="Thoughtfully connecting you with homes to rent, buy and invest in across Dubai">
+<meta property="og:image" content="assets/img/hero.webp">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="assets/img/favicon.png" type="image/png" sizes="256x256">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Obelum">
+<meta name="format-detection" content="telephone=no">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- Brand guidelines section 10: Gilda Display for headings, Montserrat for
+     everything else. No italics, no script. -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gilda+Display&family=Montserrat:wght@300;400;500;600&display=swap">
+<link rel="stylesheet" href="assets/css/styles.css?v=24">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "RealEstateAgent",
+  "name": "Obelum Properties",
+  "url": "https://obelum.ae/",
+  "email": "nicolas@obelum.ae",
+  "telephone": "+971 50 000 0000",
+  "areaServed": "Dubai, United Arab Emirates",
+  "slogan": "The land and the analysis."
+}
+</script>
+</head>
+
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- ============================================================= Header -->
+<header class="site-header" data-header>
+  <a class="wordmark" href="#">
+    <img class="wordmark__img" src="assets/img/obelum-logo.png"
+         alt="Obelum Properties" width="1748" height="498" fetchpriority="high">
+  </a>
+
+  <button class="burger" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu" data-burger>
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<nav class="mobile-nav" id="mobile-nav" aria-label="Mobile" data-mobile-nav>
+  <ul class="mobile-nav__list">
+    <li><a href="#listings">Buy</a></li>
+    <li><a href="#listings">Rent</a></li>
+    <li><a href="#valuation">Sell</a></li>
+    <li><a href="mailto:hello@obelum.ae?subject=Joining%20Obelum">Join us</a></li>
+    <li><a href="#listings">New developments</a></li>
+    <li><a href="#world">The world of Obelum</a></li>
+  </ul>
+  <div class="mobile-nav__meta">
+    <a href="tel:+971500000000">+971 50 000 0000</a>
+    <a href="mailto:nicolas@obelum.ae">nicolas@obelum.ae</a>
+    <span>Dubai, United Arab Emirates</span>
+  </div>
+</nav>
+
+<main id="main">
+
+<!-- =============================================================== Hero -->
+<!-- The nav is a sibling of the hero, not a child of it. .hero sets
+     isolation: isolate so its -z-index media stays put, and that stacking
+     context also trapped the nav: once pinned it painted underneath the
+     header's bar instead of on it. The wrapper only supplies the positioning
+     box the nav needs at the hero's foot. -->
+<div class="hero-wrap">
+<section class="hero">
+  <div class="hero__media" data-parallax="0.12">
+    <!-- A single hero image. To restore a crossfade, add more
+         <img class="hero__slide"> here; the script counts whatever is present. -->
+    <img class="hero__slide is-active" src="assets/img/hero.webp" alt=""
+         width="1672" height="941" fetchpriority="high">
+  </div>
+  <div class="hero__scrim" aria-hidden="true"></div>
+
+  <div class="hero__stage">
+    <p class="hero__eyebrow">A curated selection</p>
+    <h1 class="hero__title">Find somewhere that feels like yours</h1>
+    <a class="hero__cta" href="#listings">
+      Start your search
+      <svg width="11" height="7" viewBox="0 0 12 8" fill="none" aria-hidden="true">
+        <path d="M1 1.5 6 6.5l5-5" stroke="currentColor" stroke-width="1.4"/>
+      </svg>
+    </a>
+  </div>
+
+  <!-- The foot of the hero: the supporting line, the scroll cue and the
+       featured residence, sitting above the nav row. -->
+  <div class="hero__foot">
+    <p class="hero__sub">Thoughtfully connecting you with homes to rent, buy and invest in across Dubai</p>
+
+    <a class="hero__scroll" href="#listings">
+      <span>Scroll to discover</span>
+      <span class="hero__scroll-rule" aria-hidden="true"></span>
+    </a>
+
+    <aside class="featured" aria-label="Featured residence">
+      <p class="featured__head">
+        <span>Featured residence</span>
+        <span class="featured__count">01 / 08</span>
+      </p>
+      <p class="featured__name">Palm Jumeirah</p>
+      <p class="featured__place">7 beds &middot; 8 baths &middot; 22,000 sq. ft.</p>
+      <a class="featured__link" href="#listings">
+        Explore residence
+        <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <path d="M3.5 10.5 10.5 3.5M5 3.5h5.5V9" stroke="currentColor" stroke-width="1.3"
+                stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </aside>
+  </div>
+
+  <!-- Primary navigation sits at the foot of the hero. -->
+</section>
+
+  <nav class="hero-nav" aria-label="Primary">
+    <div class="hero-nav__group">
+      <a class="hero-nav__search" href="#listings" aria-label="Search properties">
+        <svg width="17" height="17" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+          <circle cx="7.75" cy="7.75" r="5.75" stroke="currentColor" stroke-width="1.3"/>
+          <path d="M12 12l4 4" stroke="currentColor" stroke-width="1.3"/>
+        </svg>
+      </a>
+      <a class="hero-nav__link" href="#listings">Buy</a>
+      <a class="hero-nav__link" href="#listings">Rent</a>
+      <a class="hero-nav__link" href="#valuation">Sell</a>
+      <!-- No careers page to point at yet, so it goes to the inbox the hiring
+           post already gives out. -->
+      <a class="hero-nav__link" href="mailto:hello@obelum.ae?subject=Joining%20Obelum">Join us</a>
+    </div>
+    <div class="hero-nav__group hero-nav__group--end">
+      <a class="hero-nav__link" href="#listings">New developments</a>
+      <a class="hero-nav__link" href="#world">The world of Obelum</a>
+    </div>
+  </nav>
+</div>
+
+<!-- =========================================================== Listings -->
+<section class="section listings is-light" id="listings">
+  <div class="shell">
+    <header class="statement">
+      <span class="statement__eyebrow">Selected inventory</span>
+      <h2 class="statement__title">The next move is yours</h2>
+      <span class="statement__rule" aria-hidden="true"></span>
+    </header>
+
+    <div class="cats" role="tablist" aria-label="Browse by category">
+      <button class="cats__tab" role="tab" aria-selected="true"  data-cat="waterfront">Waterfront</button>
+      <button class="cats__tab" role="tab" aria-selected="false" data-cat="skyline">Skyline views</button>
+      <button class="cats__tab" role="tab" aria-selected="false" data-cat="villas">Villas &amp; estates</button>
+      <button class="cats__tab" role="tab" aria-selected="false" data-cat="new">Just listed</button>
+      <button class="cats__tab" role="tab" aria-selected="false" data-cat="under2m">Under AED 2 million</button>
+    </div>
+  </div>
+
+  <!-- Villas show the building and its grounds, apartments the room and the
+       view from it. Four photographs for eight listings: the four above the
+       fold are each their own property; the rest borrow the one matching
+       their type and still want their own shot. See the README. -->
+  <div class="tiles" data-tiles>
+      <a class="tile" href="#" data-cats="waterfront villas">
+        <img src="assets/img/listing-villa-beach.webp" alt="Beachfront villa with a lap pool and palms, the Dubai skyline across the water" loading="lazy" width="1086" height="1448">
+        <span class="tile__body">
+          <span class="tile__place">Palm Jumeirah</span>
+          <span class="tile__spec">5 BR | 6 BA, 1 HALF BA</span>
+          <span class="tile__price">AED 42,000,000</span>
+        </span>
+      </a>
+      <a class="tile" href="#" data-cats="waterfront skyline">
+        <img src="assets/img/listing-apartment-marina.webp" alt="Apartment living room with floor-to-ceiling glass over the marina and its yachts" loading="lazy" width="1086" height="1448">
+        <span class="tile__body">
+          <span class="tile__place">Dubai Marina</span>
+          <span class="tile__spec">3 BR | 4 BA</span>
+          <span class="tile__price">AED 5,600,000</span>
+        </span>
+      </a>
+      <a class="tile" href="#" data-cats="villas waterfront">
+        <img src="assets/img/listing-villa-golf.webp" alt="Villa terrace and pool looking over a golf course and lake at sunset" loading="lazy" width="1086" height="1448">
+        <span class="tile__body">
+          <span class="tile__place">Emirates Hills</span>
+          <span class="tile__spec">7 BR | 9 BA, 2 HALF BA</span>
+          <span class="tile__price">AED 78,000,000</span>
+        </span>
+      </a>
+      <a class="tile" href="#" data-cats="waterfront skyline new">
+        <img src="assets/img/listing-apartment-creek.webp" alt="Apartment living room at dusk looking across the water to the Downtown skyline" loading="lazy" width="1086" height="1448">
+        <span class="tile__body">
+          <span class="tile__place">Dubai Creek Harbour</span>
+          <span class="tile__spec">3 BR | 4 BA</span>
+          <span class="tile__price">AED 3,100,000</span>
+        </span>
+      </a>
+      <a class="tile" href="#" data-cats="skyline new under2m">
+        <img src="assets/img/listing-apartment-creek.webp" alt="Apartment living room at dusk looking across the water to the Downtown skyline" loading="lazy" width="1086" height="1448">
+        <span class="tile__body">
+          <span class="tile__place">Downtown Dubai</span>
+          <span class="tile__spec">1 BR | 2 BA</span>
+          <span class="tile__price">AED 1,750,000</span>
+        </span>
+      </a>
+      <a class="tile" href="#" data-cats="skyline under2m">
+        <img src="assets/img/listing-apartment-marina.webp" alt="Apartment living room with floor-to-ceiling glass over the marina and its yachts" loading="lazy" width="1086" height="1448">
+        <span class="tile__body">
+          <span class="tile__place">Business Bay</span>
+          <span class="tile__spec">1 BR | 2 BA</span>
+          <span class="tile__price">AED 1,850,000</span>
+        </span>
+      </a>
+      <a class="tile" href="#" data-cats="villas new">
+        <img src="assets/img/listing-villa-golf.webp" alt="Villa terrace and pool looking over a golf course and lake at sunset" loading="lazy" width="1086" height="1448">
+        <span class="tile__body">
+          <span class="tile__place">Dubai Hills Estate</span>
+          <span class="tile__spec">4 BR | 5 BA, 1 HALF BA</span>
+          <span class="tile__price">AED 9,400,000</span>
+        </span>
+      </a>
+      <a class="tile" href="#" data-cats="villas new under2m">
+        <img src="assets/img/listing-villa-beach.webp" alt="Beachfront villa with a lap pool and palms, the Dubai skyline across the water" loading="lazy" width="1086" height="1448">
+        <span class="tile__body">
+          <span class="tile__place">Jumeirah Village Circle</span>
+          <span class="tile__spec">2 BR | 3 BA</span>
+          <span class="tile__price">AED 1,450,000</span>
+        </span>
+      </a>
+  </div>
+
+  <div class="section__foot">
+    <a class="pill" href="#">View all listings</a>
+  </div>
+</section>
+
+<!-- ============================================================== World -->
+<section class="world" id="world" aria-labelledby="world-h">
+  <div class="world__media">
+    <img src="assets/img/world.webp" alt="" width="1672" height="941" loading="lazy">
+  </div>
+  <div class="world__scrim" aria-hidden="true"></div>
+
+  <div class="shell world__inner">
+    <p class="world__pre" id="world-h">The world of</p>
+    <!-- Rule: never retype the name. The lockup is the artwork, not type.
+         The wordmark alone here, without the PROPERTIES line: the lead line
+         above already says what this is, and the panel reads as one phrase. -->
+    <img class="world__mark" src="assets/img/obelum-wordmark-white.png"
+         alt="Obelum" width="1748" height="329" loading="lazy">
+    <p class="world__sub">
+      Get immersed in the places, people, and lifestyles that inspire our world.
+    </p>
+    <a class="world__cta" href="#listings">Explore now</a>
+  </div>
+
+  <button class="world__toggle" type="button" aria-pressed="false"
+          aria-label="Pause background motion" data-media-toggle>
+    <svg viewBox="0 0 28 28" width="28" height="28" fill="none" aria-hidden="true">
+      <circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="1.1"/>
+      <path class="icon-play"  d="M11.5 9.5 17 14l-5.5 4.5z" fill="currentColor"/>
+      <path class="icon-pause" d="M12 9.5v9M16.5 9.5v9" stroke="currentColor" stroke-width="1.6"/>
+    </svg>
+  </button>
+</section>
+
+<!-- ======================================================= Testimonials -->
+<section class="section is-light quotes-section" aria-label="Client testimonials">
+  <div class="quotes" data-quotes>
+    <!-- Ornament: a rule either side of an oversized quote mark. Decorative,
+         so it is hidden from assistive tech — the figures carry the meaning. -->
+    <div class="quotes__ornament" aria-hidden="true">
+      <span class="quotes__ornament-rule"></span>
+      <span class="quotes__ornament-mark">&ldquo;</span>
+      <span class="quotes__ornament-rule"></span>
+    </div>
+
+    <button class="quotes__arrow quotes__arrow--prev" type="button"
+            aria-label="Previous testimonial" data-quote-prev>
+      <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+        <path d="M10 2.5 4.5 8l5.5 5.5" stroke="currentColor" stroke-width="1.3"
+              stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+
+    <div class="quotes__track">
+      <figure class="quote is-active" data-quote>
+        <p>&ldquo;They talked me out of the first two properties I wanted. The third one has done exactly what they said it would.&rdquo;</p>
+        <footer><cite>H. Al Mansoori</cite><small>Investor &middot; Dubai Marina</small></footer>
+      </figure>
+      <figure class="quote" data-quote>
+        <p>&ldquo;I got a spreadsheet before I got a sales pitch. That had not happened to me in Dubai before.&rdquo;</p>
+        <footer><cite>J. Okonkwo</cite><small>Seller &middot; Dubai Hills Estate</small></footer>
+      </figure>
+      <figure class="quote" data-quote>
+        <p>&ldquo;The valuation was lower than two other agencies gave me. It was also the one the property sold at.&rdquo;</p>
+        <footer><cite>M. Lindqvist</cite><small>Seller &middot; Palm Jumeirah</small></footer>
+      </figure>
+      <figure class="quote" data-quote>
+        <p>&ldquo;They told me to wait six months. I did, and the same apartment cost me less than it would have.&rdquo;</p>
+        <footer><cite>R. Haddad</cite><small>Buyer &middot; Downtown Dubai</small></footer>
+      </figure>
+      <figure class="quote" data-quote>
+        <p>&ldquo;Three viewings, not thirty. Someone had actually read the brief before picking up the phone.&rdquo;</p>
+        <footer><cite>S. Varma</cite><small>Tenant &middot; Dubai Creek Harbour</small></footer>
+      </figure>
+    </div>
+
+    <button class="quotes__arrow quotes__arrow--next" type="button"
+            aria-label="Next testimonial" data-quote-next>
+      <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+        <path d="M6 2.5 11.5 8 6 13.5" stroke="currentColor" stroke-width="1.3"
+              stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+
+    <span class="quotes__tail" aria-hidden="true"></span>
+    <div class="quotes__dots" role="tablist" aria-label="Testimonial navigation"></div>
+  </div>
+</section>
+
+<!-- ========================================================== Valuation -->
+<section class="cta section" id="valuation">
+  <div class="cta__bg"><img src="assets/img/brief.webp" alt="" loading="lazy" width="1672" height="941"></div>
+  <div class="cta__inner">
+    <!-- One block per intent. They all ship in the markup and JS only toggles
+         `hidden`, so the copy stays editable here rather than inside a script,
+         and nothing is injected as a string. aria-live tells a screen reader
+         the panel rewrote itself after a card is chosen. -->
+    <div class="cta__copy" data-intent-copy aria-live="polite">
+      <div class="intent-copy" data-for="default">
+        <span class="eyebrow">Start here</span>
+        <h2 class="h2">Tell us what you&rsquo;re <span class="italic">looking for.</span></h2>
+        <p>
+          Share your brief and one of our advisors will come back to you within 24 hours,
+          with a handpicked shortlist that actually fits.
+        </p>
+      </div>
+
+      <div class="intent-copy" data-for="buy" hidden>
+        <span class="eyebrow">Buy with Obelum</span>
+        <h2 class="h2">Let&rsquo;s find the one that <span class="italic">actually fits.</span></h2>
+        <p>
+          Tell us the budget, the communities and the timing. An advisor comes back within
+          24 hours with a shortlist — and the honest case against every property on it.
+        </p>
+      </div>
+
+      <div class="intent-copy" data-for="sell" hidden>
+        <span class="eyebrow">Sell with Obelum</span>
+        <h2 class="h2">Find out what it is worth, <span class="italic">not what you hope.</span></h2>
+        <p>
+          A desktop valuation within two working days, built from recorded transactions in your
+          own building or street. We send the comparables with it, including the ones that hurt.
+        </p>
+      </div>
+
+      <div class="intent-copy" data-for="rent" hidden>
+        <span class="eyebrow">Rent with Obelum</span>
+        <h2 class="h2">A place to live, <span class="italic">not a viewing treadmill.</span></h2>
+        <p>
+          Tell us the area, the budget and when you need to move. We send what genuinely
+          matches, then handle the Ejari, the index and the notice periods once you choose.
+        </p>
+      </div>
+
+      <div class="intent-copy" data-for="offplan" hidden>
+        <span class="eyebrow">Off-plan with Obelum</span>
+        <h2 class="h2">The numbers before <span class="italic">the brochure.</span></h2>
+        <p>
+          Payment plan, handover risk and yield net of service charge, void and agency —
+          modelled before you commit. We will tell you when a launch is not worth taking.
+        </p>
+      </div>
+    </div>
+
+    <form class="valuation" id="contact" method="post" data-brief>
+      <!-- Radios, not a select: the options carry a line of explanation each, and
+           a radio group gives arrow-key navigation and the right announcement
+           for free. -->
+      <fieldset class="intents">
+        <legend class="intents__legend">What are you looking to do?</legend>
+
+        <!-- A disclosure around the same four radios, not a <select>: a native
+             option cannot carry a second line, and these each explain
+             themselves. The radios stay the source of truth, so the group
+             keeps its arrow-key navigation and the form still posts `intent`. -->
+        <div class="intents__field" data-intent-field>
+          <button class="intents__toggle" type="button"
+                  aria-expanded="false" aria-controls="intent-options" data-intent-toggle>
+            <span class="intents__value" data-intent-value>Select one</span>
+            <svg class="intents__caret" width="12" height="8" viewBox="0 0 12 8" fill="none" aria-hidden="true">
+              <path d="M1 1.5 6 6.5l5-5" stroke="currentColor" stroke-width="1.4"
+                    stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+
+          <div class="intents__options" id="intent-options" data-intent-options hidden>
+        <label class="intent">
+          <input class="intent__input" type="radio" name="intent" value="buy"
+                 data-submit="Send my brief"
+                 data-note="One advisor, one shortlist. No mailing list.">
+          <span class="intent__text">
+            <span class="intent__title">Looking to buy</span>
+            <span class="intent__sub">Find the right home or investment</span>
+          </span>
+        </label>
+
+        <label class="intent">
+          <input class="intent__input" type="radio" name="intent" value="sell"
+                 data-submit="Request a valuation"
+                 data-note="No automated estimate. A person reads the file and replies.">
+          <span class="intent__text">
+            <span class="intent__title">Ready to sell</span>
+            <span class="intent__sub">Expert valuation and qualified buyers</span>
+          </span>
+        </label>
+
+        <label class="intent">
+          <input class="intent__input" type="radio" name="intent" value="rent"
+                 data-submit="Send my requirements"
+                 data-note="We will tell you if the asking rent sits above the index.">
+          <span class="intent__text">
+            <span class="intent__title">Looking to rent</span>
+            <span class="intent__sub">Find the right property to lease</span>
+          </span>
+        </label>
+
+        <label class="intent">
+          <input class="intent__input" type="radio" name="intent" value="offplan"
+                 data-submit="Ask about off-plan"
+                 data-note="Launch access, without the pressure to take it.">
+          <span class="intent__text">
+            <span class="intent__title">Exploring off-plan</span>
+            <span class="intent__sub">Early-stage investment opportunities</span>
+          </span>
+        </label>
+          </div>
+        </div>
+      </fieldset>
+
+      <div class="valuation__row">
+        <div class="field">
+          <label for="v-name">Name</label>
+          <input id="v-name" name="name" type="text" placeholder="Your name" required>
+        </div>
+        <div class="field">
+          <label for="v-phone">Phone</label>
+          <input id="v-phone" name="phone" type="tel" placeholder="+971" required>
+        </div>
+      </div>
+      <div class="field">
+        <label for="v-email">Email</label>
+        <input id="v-email" name="email" type="email" placeholder="you@example.com" required>
+      </div>
+      <div class="field">
+        <label for="v-community">Community</label>
+        <input id="v-community" name="community" type="text" placeholder="e.g. JVC" required>
+      </div>
+
+      <button class="btn btn--gold" type="submit" data-brief-submit>Submit my brief</button>
+      <p class="valuation__note" data-brief-note role="status">
+        Tell us which of the four fits and the rest of this follows.
+      </p>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<!-- =============================================================== Feed -->
+<!-- Real Obelum social artwork, held in the repo. The carousel is still static:
+     wiring it to the live account needs a source — see "Instagram feed" in the
+     README. The posts are 4:5, the ratio Instagram gives a portrait post, and
+     .feed__item matches it so the copy at the top and bottom edges survives. -->
+<section class="feed is-dark on-dark" id="feed" aria-labelledby="feed-h">
+  <div class="shell feed__head">
+    <h2 class="feed__title" id="feed-h">
+      On the move with
+      <a class="feed__handle" href="https://www.instagram.com/obelum.properties/" target="_blank" rel="noopener">@obelum.properties</a>
+    </h2>
+    <div class="feed__nav">
+      <button class="feed__arrow" type="button" data-feed="prev" aria-label="Previous posts" aria-controls="feed-track">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M10 2.5 4.5 8l5.5 5.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <button class="feed__arrow" type="button" data-feed="next" aria-label="Next posts" aria-controls="feed-track">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M6 2.5 11.5 8 6 13.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="feed__track" id="feed-track" data-feed-track tabindex="0" role="group" aria-label="Instagram posts">
+      <a class="feed__item" href="https://www.instagram.com/obelum.properties/" target="_blank" rel="noopener">
+        <img src="assets/img/ig-01.webp" alt="Introducing Obelum Properties — Discover. Live. Belong." loading="lazy" width="1080" height="1350">
+      </a>
+      <a class="feed__item" href="https://www.instagram.com/obelum.properties/" target="_blank" rel="noopener">
+        <img src="assets/img/ig-02.webp" alt="Your next move is everything: freedom, support and opportunity at a Dubai cloud brokerage." loading="lazy" width="1080" height="1350">
+      </a>
+      <a class="feed__item" href="https://www.instagram.com/obelum.properties/" target="_blank" rel="noopener">
+        <img src="assets/img/ig-03.webp" alt="Poised for the extraordinary." loading="lazy" width="1080" height="1350">
+      </a>
+      <a class="feed__item" href="https://www.instagram.com/obelum.properties/" target="_blank" rel="noopener">
+        <img src="assets/img/ig-04.webp" alt="Let’s build something together — we’re hiring. Send your CV to hello@obelum.ae." loading="lazy" width="1080" height="1350">
+      </a>
+  </div>
+</section>
+
+<!-- =========================================================== Signup -->
+<!-- No list is connected yet: the form posts nowhere and main.js intercepts it
+     to point people at hello@obelum.ae. Give the <form> an action when the
+     mailing provider is chosen and delete the handler — see the README. -->
+<section class="signup is-dark on-dark" aria-labelledby="signup-h">
+  <div class="shell signup__inner">
+    <h2 class="signup__title" id="signup-h">
+      The latest in Dubai property, <span class="italic">lifestyle &amp; culture</span>, curated just for you.
+    </h2>
+    <form class="signup__form" data-signup novalidate>
+      <label class="signup__label" for="signup-email">Enter your email</label>
+      <div class="signup__control">
+        <input class="signup__input" id="signup-email" name="email" type="email"
+               autocomplete="email" placeholder="Enter your email" required>
+        <button class="signup__go" type="submit" aria-label="Subscribe">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M6 2.5 11.5 8 6 13.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+      <p class="signup__note" data-signup-note role="status"></p>
+    </form>
+  </div>
+</section>
+
+<!-- ============================================================= Footer -->
+<footer class="site-footer">
+  <div class="shell site-footer__top">
+    <div class="site-footer__brand">
+      <a class="wordmark wordmark--footer" href="#">
+        <img class="wordmark__img" src="assets/img/obelum-logo.png"
+             alt="Obelum Properties" width="1748" height="498" loading="lazy">
+      </a>
+      <p>A Dubai brokerage that does the maths before it makes the pitch.</p>
+      <div class="socials">
+        <a href="#" aria-label="Instagram"><svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="2.5" y="2.5" width="15" height="15" rx="4.5"/><circle cx="10" cy="10" r="3.6"/><circle cx="14.9" cy="5.1" r=".9" fill="currentColor" stroke="none"/></svg></a>
+        <a href="#" aria-label="YouTube"><svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="1.5" y="4.5" width="17" height="11" rx="3.4"/><path d="M8.4 7.8 13 10l-4.6 2.2z" fill="currentColor" stroke="none"/></svg></a>
+        <a href="#" aria-label="LinkedIn"><svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="2.5" y="2.5" width="15" height="15" rx="2.5"/><path d="M6.4 8.6v5.2M6.4 6.3v.1M9.8 13.8V8.6M9.8 10.6c0-1.1.8-2 1.9-2s1.9.9 1.9 2v3.2"/></svg></a>
+        <a href="#" aria-label="WhatsApp"><svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M3 17l1.2-3.4A7 7 0 1 1 7 16.3z"/><path d="M7.3 7.6c.5 2.4 2.7 4.6 5.1 5.1l1-1.3 1.6.8-.4 1.4c-2.9.6-6.9-3.4-6.3-6.3l1.4-.4.8 1.6z" fill="currentColor" stroke="none"/></svg></a>
+      </div>
+    </div>
+
+    <div class="fcol">
+      <h4>Property</h4>
+      <ul>
+        <li><a href="#listings">Buy in Dubai</a></li>
+        <li><a href="#listings">Rent in Dubai</a></li>
+        <li><a href="#listings">Off-market list</a></li>
+      </ul>
+    </div>
+
+    <div class="fcol">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#listings">New developments</a></li>
+        <li><a href="#world">The world of Obelum</a></li>
+        <li><a href="#valuation">List with us</a></li>
+      </ul>
+    </div>
+
+    <div class="fcol">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="tel:+971500000000">+971 50 000 0000</a></li>
+        <li><a href="mailto:nicolas@obelum.ae">nicolas@obelum.ae</a></li>
+        <li><a href="#">obelum.ae</a></li>
+        <li><a href="#">Dubai, United Arab Emirates</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="shell site-footer__bar">
+    <span>© <span data-year>2026</span> Obelum Properties. RERA ORN 00000 · DED 000000.</span>
+    <nav aria-label="Legal">
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+      <a href="#">Cookies</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="assets/js/main.js?v=24" defer></script>
+</body>
+</html>
